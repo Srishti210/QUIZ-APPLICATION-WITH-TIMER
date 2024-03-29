@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+class QuizQuestion {
+    private String question;
+    private String[] options;
+    private int correctOption;
+
+    public QuizQuestion(String question, String[] options, int correctOption) {
+        this.question = question;
+        this.options = options;
+        this.correctOption = correctOption;
+    }
+
+    public boolean isCorrect(int userChoice) {
+        return userChoice == correctOption;
+    }
+
+    // Getter for question (to access it from the main class)
+    public String getQuestion() {
+        return question;
+    }
+
+    // Getter for options (to access them from the main class)
+    public String[] getOptions() {
+        return options;
+    }
+}
+
+public class QuizGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Create quiz questions
+        QuizQuestion[] questions = {
+            new QuizQuestion("What is the capital of France?",
+                    new String[]{"A) Paris", "B) London", "C) Rome", "D) Berlin"}, 0),
+            new QuizQuestion("Which planet is known as the Red Planet?",
+                    new String[]{"A) Venus", "B) Mars", "C) Jupiter", "D) Saturn"}, 1)
+            // Add more questions here...
+        };
+
+        int score = 0;
+
+        System.out.println("Welcome to the Quiz Game!");
+        System.out.println("Answer the following questions:");
+
+        for (QuizQuestion question : questions) {
+            System.out.println(question.getQuestion()); // Use the getter
+            for (int i = 0; i < question.getOptions().length; i++) {
+                System.out.println(question.getOptions()[i]); // Use the getter
+            }
+
+            System.out.print("Enter your choice (0-3): ");
+            int userChoice = scanner.nextInt();
+
+            if (question.isCorrect(userChoice)) {
+                System.out.println("Correct!\n");
+                score++;
+            } else {
+                System.out.println("Incorrect!\n");
+            }
+        }
+
+        System.out.println("Quiz completed!");
+        System.out.println("Your final score: " + score + "/" + questions.length);
+    }
+}
